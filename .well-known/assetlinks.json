@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.amkh.chess",
+      "sha256_cert_fingerprints": [
+        "8C:27:52:2F:E7:46:92:BB:89:B0:4E:5D:1B:2A:D3:B2:DC:46:E0:38:49:B9:B9:84:08:0C:43:F4:5E:D4:2E:ED"
+      ]
+    }
+  }
+]
