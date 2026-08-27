@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سياسة الخصوصية — شطرنج Am-Kh</title>
+<meta name="description" content="سياسة الخصوصية لتطبيق شطرنج Am-Kh: ما نجمعه، لماذا، ومع من نشاركه، وكيف تحذف بياناتك.">
+<link rel="icon" href="https://12362aa.github.io/chess/icon.png">
+<style>
+  :root{
+    --bg:#0a0a14; --bg2:#10101e; --bg3:#181830; --bg4:#202040;
+    --gold:#c9a84c; --gold2:#e8d080; --gold3:#fff0a0;
+    --text:#ede8dc; --text2:#9a9080; --text3:#5a5040;
+    --line:rgba(201,168,76,.18);
+    --ok:#3ecf8e; --warn:#e0b25c;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 600px at 80% -10%, rgba(201,168,76,.10), transparent 60%),
+      linear-gradient(160deg, #06142c 0%, #0a0a14 45%, #1a1140 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;
+    font-size:17px; line-height:1.95;
+    -webkit-text-size-adjust:100%;
+  }
+  /* رقعة شطرنج خفيفة كخلفية — نفس روح ثيم اللعبة */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,.014) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.014) 75%),
+      linear-gradient(45deg, rgba(255,255,255,.014) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.014) 75%);
+    background-size:88px 88px; background-position:0 0,44px 44px;
+  }
+  .wrap{position:relative; z-index:1; max-width:820px; margin:0 auto; padding:0 20px 72px;}
+
+  header{text-align:center; padding:56px 0 30px;}
+  .logo{
+    width:104px;height:104px;margin:0 auto 20px;display:block;border-radius:24px;
+    box-shadow:0 16px 44px rgba(0,0,0,.55), 0 0 0 1px var(--line);
+  }
+  h1{
+    margin:0 0 10px; font-size:2.05rem; font-weight:800; letter-spacing:-.4px;
+    background:linear-gradient(180deg,#fff 0%, var(--gold2) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sub{color:var(--text2); font-size:1.02rem; margin:0;}
+  .rule{
+    width:150px;height:4px;border-radius:2px;margin:22px auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .meta{
+    margin:26px auto 0; max-width:560px; padding:12px 18px; border-radius:14px;
+    background:rgba(255,255,255,.035); border:1px solid var(--line);
+    color:var(--text2); font-size:.92rem;
+  }
+  .meta b{color:var(--gold2); font-weight:700;}
+
+  .lede{
+    margin:34px 0 0; padding:22px 24px; border-radius:18px;
+    background:linear-gradient(180deg, rgba(201,168,76,.09), rgba(201,168,76,.03));
+    border:1px solid var(--line);
+  }
+  .lede p{margin:0;}
+  .lede strong{color:var(--gold2);}
+
+  section{
+    margin:22px 0 0; padding:26px 26px 8px; border-radius:18px;
+    background:rgba(255,255,255,.030); border:1px solid rgba(255,255,255,.07);
+  }
+  h2{
+    display:flex; align-items:center; gap:12px;
+    margin:0 0 16px; font-size:1.25rem; font-weight:800; color:#fff;
+  }
+  h2 .n{
+    flex:0 0 auto; width:34px;height:34px;border-radius:10px;
+    display:grid;place-items:center; font-size:.92rem; font-weight:800;
+    color:var(--gold2); background:rgba(201,168,76,.12); border:1px solid var(--line);
+  }
+  h3{margin:22px 0 8px; font-size:1.03rem; font-weight:700; color:var(--gold2);}
+  p{margin:0 0 14px;}
+  ul{margin:0 0 14px; padding-inline-start:22px;}
+  li{margin:0 0 9px;}
+  li::marker{color:var(--gold);}
+  b,strong{color:#fff;}
+  code{
+    font-family:ui-monospace,Consolas,monospace; font-size:.88em;
+    background:rgba(255,255,255,.06); padding:2px 7px; border-radius:6px; color:var(--gold2);
+    direction:ltr; display:inline-block;
+  }
+  a{color:var(--gold2); text-decoration:none; border-bottom:1px solid rgba(232,208,128,.35);}
+  a:hover{color:var(--gold3);}
+
+  table{width:100%; border-collapse:collapse; margin:6px 0 18px; font-size:.95rem;}
+  th,td{padding:11px 13px; text-align:right; border-bottom:1px solid rgba(255,255,255,.08); vertical-align:top;}
+  th{color:var(--gold2); font-weight:700; background:rgba(201,168,76,.07);}
+  tr:last-child td{border-bottom:none;}
+
+  .note{
+    margin:0 0 16px; padding:15px 18px; border-radius:14px;
+    background:rgba(62,207,142,.07); border:1px solid rgba(62,207,142,.22);
+  }
+  .note b{color:var(--ok);}
+  .warnbox{
+    margin:0 0 16px; padding:15px 18px; border-radius:14px;
+    background:rgba(224,178,92,.08); border:1px solid rgba(224,178,92,.26);
+  }
+  .warnbox b{color:var(--warn);}
+
+  footer{
+    margin:40px 0 0; padding:26px 0 0; text-align:center;
+    color:var(--text3); font-size:.9rem; border-top:1px solid rgba(255,255,255,.07);
+  }
+  footer .pc{color:var(--gold); font-size:1.3rem; letter-spacing:6px; display:block; margin-bottom:12px;}
+  @media (max-width:560px){
+    body{font-size:16px;}
+    h1{font-size:1.65rem;}
+    section{padding:20px 18px 6px;}
+    .wrap{padding:0 14px 56px;}
+    th,td{padding:9px 8px; font-size:.9rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="logo" src="https://12362aa.github.io/chess/icon.png" alt="شطرنج Am-Kh">
+    <h1>سياسة الخصوصية</h1>
+    <p class="sub">تطبيق <b>شطرنج Am-Kh</b> — لعبة شطرنج عربية للهواتف</p>
+    <div class="rule"></div>
+    <div class="meta">
+      اسم الحزمة: <code>com.amkh.chess</code><br>
+      تاريخ السريان: <b>28 أغسطس 2026</b> &nbsp;·&nbsp; آخر تحديث: <b>28 أغسطس 2026</b>
+    </div>
+  </header>
+
+  <div class="lede">
+    <p>
+      <strong>شطرنج Am-Kh</strong> لعبة شطرنج للهواتف بواجهة عربية كاملة. تتيح اللعب ضد محرّك
+      Stockfish بعشرة مستويات، ورحلة من 12 مرحلة ضد شخصيات «نور»، ولاعبين على نفس الجهاز،
+      واللعب عبر البلوتوث مع جهاز قريب، واللعب أونلاين مع الأصدقاء مع تصنيف ودردشة
+      ومكالمات صوت وفيديو ومساعد ذكي داخل المباراة.
+      <br><br>
+      نحن <strong>لا نبيع بياناتك ولا نشاركها لأغراض تسويقية</strong>، ولا يحتوي التطبيق على
+      إعلانات أو أدوات تتبّع تجارية. تشرح هذه الصفحة بدقّة ما نجمعه، ولماذا، ومع من نشاركه،
+      وكيف تحذفه.
+    </p>
+  </div>
+
+  <section>
+    <h2><span class="n">١</span> ما يعمل بدون أي بيانات</h2>
+    <div class="note">
+      <p style="margin:0">
+        <b>يمكنك استخدام جزء كبير من اللعبة دون إنشاء حساب ودون اتصال بالإنترنت.</b>
+        في هذه الأوضاع لا تُرسل أي بيانات إلى خوادمنا على الإطلاق:
+      </p>
+    </div>
+    <ul>
+      <li><b>اللعب ضد المحرك</b> — محرّك الشطرنج يعمل بالكامل داخل جهازك.</li>
+      <li><b>رحلة مراحل نور</b> — التقدّم والنجوم تُخزَّن على جهازك.</li>
+      <li><b>لاعبان على نفس الجهاز</b> — لا شبكة ولا حساب.</li>
+      <li><b>اللعب عبر البلوتوث</b> — الاتصال مباشر بين الجهازين، ولا يمرّ بخوادمنا.</li>
+    </ul>
+    <p>
+      البيانات الموصوفة في القسم التالي تُجمَع فقط عند إنشاء حساب أو استخدام الميزات
+      المتّصلة بالإنترنت (أونلاين، الأصدقاء، الدردشة، المكالمات، التصنيف، مساعد نور، الإشعارات).
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="n">٢</span> البيانات التي نجمعها ولماذا</h2>
+    <table>
+      <tr><th style="width:32%">البيانات</th><th>الغرض</th></tr>
+      <tr>
+        <td><b>بيانات الحساب</b><br>البريد الإلكتروني، الاسم المعروض، اسم المستخدم، الصورة الرمزية، مُعرِّف حساب Google، البلد (اختياري)</td>
+        <td>إنشاء حسابك وتسجيل الدخول وتمييزك عن باقي اللاعبين. عند استخدام «تسجيل الدخول بـGoogle» نستلم البريد والاسم والصورة من Google فقط — <b>لا نرى كلمة مرور حساب Google الخاص بك إطلاقًا</b>.</td>
+      </tr>
+      <tr>
+        <td><b>بيانات اللعب</b><br>نتائج المباريات، أسماء الخصوم، التصنيف وتاريخه، عدد الانتصارات والخسائر والتعادلات، نقلات المباريات المُصنَّفة، تقدّم مراحل نور</td>
+        <td>حساب التصنيف بنزاهة، إظهار سجل مبارياتك ولوحة المتصدّرين، ومتابعة تقدّمك في المراحل.</td>
+      </tr>
+      <tr>
+        <td><b>البيانات الاجتماعية</b><br>قائمة الأصدقاء، طلبات الصداقة، الحظر، الدعوات للمباريات، المجموعات وعضويّتها، حالة التواجد (متصل/آخر ظهور)</td>
+        <td>تشغيل نظام الأصدقاء والدعوات والمجموعات، وإظهار مَن متاح للعب الآن.</td>
+      </tr>
+      <tr>
+        <td><b>الرسائل</b><br>نصوص الدردشة، الرسائل الصوتية، أوقات الإرسال والتسليم والقراءة، الردود والرسائل المثبّتة</td>
+        <td>توصيل رسائلك إلى مَن أرسلتها له، وإظهارها لك على أي جهاز تدخل منه، وعرض علامات التسليم والقراءة. تُخزَّن على خادمنا لهذا الغرض.</td>
+      </tr>
+      <tr>
+        <td><b>الإعدادات وتفضيلات الخصوصية</b></td>
+        <td>حفظ اختياراتك (الثيم، الصوت، مَن يستطيع مراسلتك أو رؤية تواجدك… إلخ) وتطبيقها.</td>
+      </tr>
+      <tr>
+        <td><b>مُعرِّف الإشعارات</b> (رمز جهاز من Firebase)</td>
+        <td>إرسال إشعارات دعوات المباريات والرسائل والمكالمات إلى جهازك. رمز تقني مرتبط بالجهاز، ولا يحتوي على أي معلومات شخصية.</td>
+      </tr>
+      <tr>
+        <td><b>البيانات التقنية الأساسية</b><br>عنوان IP وأوقات الاتصال</td>
+        <td>تُعالَج تلقائيًا لتشغيل الاتصال بالخادم وحمايته من إساءة الاستخدام. نحن لا نبني منها ملفًّا تعريفيًّا عنك.</td>
+      </tr>
+    </table>
+    <div class="warnbox">
+      <p style="margin:0">
+        <b>ما لا نجمعه:</b> لا نجمع موقعك الجغرافي، ولا جهات اتصالك، ولا الصور والملفات
+        الموجودة على جهازك، ولا سجل التطبيقات المثبّتة، ولا أي بيانات مالية.
+        كما <b>لا يحتوي التطبيق على إعلانات ولا أدوات تحليلات أو تتبّع تجارية</b>.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">٣</span> صلاحيات الجهاز — لماذا نطلبها</h2>
+    <p>نطلب كل صلاحية لغرض واضح مرتبط بميزة تستخدمها، ويمكنك رفضها والاستمرار في اللعب:</p>
+    <table>
+      <tr><th style="width:34%">الصلاحية</th><th>سبب الطلب</th></tr>
+      <tr><td><b>الكاميرا</b></td><td>مكالمات الفيديو مع خصمك أثناء المباراة فقط. لا نصوّر ولا نخزّن أي صورة أو فيديو.</td></tr>
+      <tr><td><b>الميكروفون</b></td><td>المكالمات الصوتية والرسائل الصوتية التي تختار إرسالها.</td></tr>
+      <tr><td><b>البلوتوث والأجهزة القريبة</b></td><td>العثور على جهاز قريب واللعب معه مباشرة بدون إنترنت.</td></tr>
+      <tr>
+        <td><b>الموقع (تقريبي/دقيق)</b></td>
+        <td>
+          يفرض نظام Android هذه الصلاحية تقنيًّا على أي تطبيق يبحث عن أجهزة بلوتوث قريبة.
+          نستخدمها <b>فقط</b> لتمكين البحث عن الأجهزة القريبة،
+          و<b>لا نقرأ موقعك ولا نخزّنه ولا نرسله إلى أي مكان</b>.
+        </td>
+      </tr>
+      <tr><td><b>الإشعارات والاهتزاز</b></td><td>تنبيهك بدعوة مباراة أو رسالة أو مكالمة واردة، وعرض شاشة المكالمة الواردة والتطبيق مُغلق.</td></tr>
+      <tr><td><b>الإنترنت وحالة الشبكة</b></td><td>الاتصال بالخادم للأوضاع الأونلاين، ومعرفة إن كان الاتصال متاحًا.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">٤</span> مساعد «نور» الذكي</h2>
+    <p>
+      داخل المباراة يمكنك التحدّث مع مساعد ذكي يشرح ويحلّل بالعربية. لتوليد الردّ، يُرسَل
+      <b>وصف نصّي لحالة المباراة</b> (وضع القطع، آخر نقلة، دورك، التقييم، اسمك المعروض
+      داخل اللعبة، ونصّ رسالتك للمساعد) إلى مزوّد خدمة الذكاء الاصطناعي
+      <a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener">Groq</a>
+      لمعالجته وإرجاع الردّ.
+    </p>
+    <ul>
+      <li>لا يُرسَل بريدك الإلكتروني ولا رسائلك الخاصة مع أصدقائك ولا أي بيانات حساب.</li>
+      <li>هذه الميزة تعمل فقط عند استخدامك للمساعد؛ اللعب ضد المحرك لا يحتاجها.</li>
+      <li>تخضع معالجة هذه الرسائل لسياسة خصوصية Groq بالإضافة إلى هذه السياسة.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">٥</span> مع مَن نشارك البيانات</h2>
+    <p>لا نبيع بياناتك ولا نشاركها مع مُعلِنين. نستعين فقط بمزوّدي خدمات تقنيين لتشغيل الميزات:</p>
+    <table>
+      <tr><th style="width:34%">الجهة</th><th>ما تصل إليه وسببه</th></tr>
+      <tr><td><b>Google</b> (تسجيل الدخول)</td><td>التحقّق من هويتك عند اختيارك «تسجيل الدخول بـGoogle».</td></tr>
+      <tr><td><b>Firebase Cloud Messaging</b> (Google)</td><td>توصيل الإشعارات إلى جهازك.</td></tr>
+      <tr><td><b>Groq</b></td><td>معالجة رسائل مساعد «نور» كما هو موضّح في القسم ٤.</td></tr>
+      <tr><td><b>Cloudflare و Google STUN</b></td><td>خدمات ربط المكالمات. لإتمام الاتصال يمرّ بها عنوان IP للطرفين، وقد تُمرَّر عبرها بيانات الصوت/الفيديو مُشفَّرة إذا تعذّر الاتصال المباشر.</td></tr>
+      <tr><td><b>GitHub</b></td><td>استضافة هذه الصفحة وملف إعداد عنوان الخادم الذي يقرأه التطبيق.</td></tr>
+    </table>
+    <p>
+      قد نكشف بيانات إذا طلب ذلك قانونٌ سارٍ أو جهة قضائية مختصّة، أو للتحقيق في إساءة
+      استخدام أو غشّ يهدّد نزاهة اللعب وسلامة اللاعبين.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="n">٦</span> المكالمات والدردشة</h2>
+    <ul>
+      <li>
+        <b>المكالمات (صوت وفيديو):</b> تُنقَل مباشرة بين الجهازين بتقنية WebRTC وهي مُشفَّرة أثناء النقل.
+        <b>لا نسجّل المكالمات ولا نخزّنها.</b> يقتصر دور خادمنا على تعريف الطرفين ببعضهما لبدء الاتصال.
+      </li>
+      <li>
+        <b>الدردشة:</b> الرسائل النصّية والصوتية تُخزَّن على خادمنا حتى يستلمها المستلِم ويستطيع كلاكما
+        الرجوع إليها. الاتصال بالخادم مُشفَّر (HTTPS/WSS). الرسائل ليست مُشفَّرة طرفًا-لطرف،
+        أي أن مدير الخادم قادر تقنيًّا على الوصول إليها؛ لا نقرأ محتوى الرسائل إلا عند
+        بلاغ إساءة أو ضرورة تقنية.
+      </li>
+      <li>
+        <b>إعدادات الخصوصية:</b> يمكنك من داخل التطبيق التحكّم في مَن يستطيع مراسلتك أو دعوتك
+        أو رؤية تواجدك وصورتك، ويمكنك حظر أي مستخدم.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">٧</span> مدّة الاحتفاظ بالبيانات وحذف حسابك</h2>
+    <p>
+      نحتفظ ببيانات حسابك ما دام حسابك قائمًا. تظلّ سجلّات المباريات المُصنَّفة محفوظة
+      لضمان نزاهة نظام التصنيف. يمكنك في أي وقت:
+    </p>
+    <ul>
+      <li>تعديل اسمك المعروض وصورتك وإعدادات خصوصيتك من داخل التطبيق.</li>
+      <li>
+        <b>طلب حذف حسابك وبياناتك بالكامل</b> عن طريق مراسلتنا (انظر القسم ١٠).
+        يُنفَّذ الحذف خلال <b>30 يومًا</b> كحدّ أقصى، ويشمل بيانات حسابك ورسائلك
+        وقائمة أصدقائك وتفضيلاتك ورمز الإشعارات الخاص بجهازك.
+      </li>
+      <li>
+        قد نُبقي على سجلّ مباريات مجهول الهوية (بدون بريدك أو اسمك أو أي مُعرِّف يدلّ عليك)
+        لأغراض سلامة نظام التصنيف.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">٨</span> أمن البيانات</h2>
+    <ul>
+      <li>كل الاتصال بين التطبيق والخادم يمرّ عبر قنوات مُشفَّرة (HTTPS و WSS).</li>
+      <li>الدخول إلى حسابك محميّ برموز دخول مؤقّتة، وكلمات المرور — إن استُخدمت — تُخزَّن مُعمّاة (hash) لا كنصّ صريح.</li>
+      <li>الوصول إلى قاعدة البيانات مقصور على مَن يُشغّل الخدمة.</li>
+      <li>
+        لا توجد طريقة نقل أو تخزين آمنة بنسبة 100%؛ نبذل جهدًا معقولًا لحماية بياناتك،
+        لكننا لا نستطيع ضمان الأمن المطلق.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">٩</span> الأطفال</h2>
+    <p>
+      اللعبة مناسبة لعموم الجمهور، لكنها <b>غير موجَّهة للأطفال دون 13 عامًا</b> ولا نجمع
+      بياناتهم عن قصد. الميزات الاجتماعية (الدردشة والمكالمات ومطابقة اللاعبين) تتطلّب وعيًا
+      بالتعامل مع الغرباء، لذا نوصي بإشراف الوالدين. إذا علم وليّ أمر أن طفلًا دون 13 عامًا
+      أنشأ حسابًا، فليراسلنا وسنحذف الحساب وبياناته.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="n">١٠</span> التواصل معنا</h2>
+    <p>
+      لأي سؤال عن هذه السياسة، أو لطلب حذف حسابك وبياناتك، أو للإبلاغ عن إساءة استخدام،
+      تواصل معنا عبر:
+    </p>
+    <ul>
+      <li><b>صفحة المطوّر على GitHub:</b> <a href="https://github.com/12362aa" target="_blank" rel="noopener">github.com/12362aa</a></li>
+      <li><b>فتح طلب مباشر:</b> <a href="https://github.com/12362aa/chess/issues" target="_blank" rel="noopener">صفحة الطلبات والبلاغات</a></li>
+    </ul>
+    <p>نسعى للردّ على الطلبات المتعلّقة بالخصوصية وحذف البيانات في أسرع وقت ممكن.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">١١</span> تعديلات هذه السياسة</h2>
+    <p>
+      قد نُحدِّث هذه الصفحة عند إضافة ميزات جديدة أو تغيّر طريقة معالجة البيانات. سيُعدَّل
+      «تاريخ آخر تحديث» أعلى الصفحة عند كل تعديل، وستُنشَر النسخة المُحدَّثة على هذا الرابط
+      نفسه. التعديلات الجوهرية سنُنبّه إليها داخل التطبيق.
+    </p>
+  </section>
+
+  <footer>
+    <span class="pc">♜ ♞ ♝ ♛ ♚</span>
+    شطرنج Am-Kh &nbsp;·&nbsp; <code>com.amkh.chess</code><br>
+    سياسة الخصوصية — نُشرت في 28 أغسطس 2026
+  </footer>
+
+</div>
+</body>
+</html>
