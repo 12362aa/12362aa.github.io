@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>سياسة الخصوصية — شطرنج Am-Kh</title>
-<meta name="description" content="سياسة الخصوصية لتطبيق شطرنج Am-Kh: ما نجمعه، لماذا، ومع من نشاركه، وكيف تحذف بياناتك.">
+<title>Privacy Policy — Am-Kh Chess</title>
+<meta name="description" content="Privacy Policy for Am-Kh Chess: what we collect, why, who we share it with, and how to delete your data.">
 <link rel="icon" href="https://12362aa.github.io/chess/icon.png">
 <style>
   :root{
@@ -16,17 +16,19 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
   body{
     background:
       radial-gradient(1100px 600px at 80% -10%, rgba(201,168,76,.10), transparent 60%),
       linear-gradient(160deg, #06142c 0%, #0a0a14 45%, #1a1140 100%);
     background-attachment:fixed;
     color:var(--text);
-    font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;
-    font-size:17px; line-height:1.95;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:17px; line-height:1.9;
     -webkit-text-size-adjust:100%;
+    overflow-x:hidden;
   }
-  /* رقعة شطرنج خفيفة كخلفية — نفس روح ثيم اللعبة */
+  /* subtle chessboard texture — same spirit as the game theme */
   body::before{
     content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
     background-image:
@@ -34,27 +36,67 @@
       linear-gradient(45deg, rgba(255,255,255,.014) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.014) 75%);
     background-size:88px 88px; background-position:0 0,44px 44px;
   }
+  /* slow drifting golden glow */
+  body::after{
+    content:""; position:fixed; z-index:0; pointer-events:none;
+    width:60vmax; height:60vmax; left:-20vmax; bottom:-25vmax; border-radius:50%;
+    background:radial-gradient(circle at center, rgba(201,168,76,.10), transparent 65%);
+    filter:blur(10px);
+    animation:drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%  {transform:translate(0,0) scale(1);}
+    100%{transform:translate(14vmax,-8vmax) scale(1.25);}
+  }
+
   .wrap{position:relative; z-index:1; max-width:820px; margin:0 auto; padding:0 20px 72px;}
 
   header{text-align:center; padding:56px 0 30px;}
   .logo{
     width:104px;height:104px;margin:0 auto 20px;display:block;border-radius:24px;
     box-shadow:0 16px 44px rgba(0,0,0,.55), 0 0 0 1px var(--line);
+    animation:logoIn .9s cubic-bezier(.2,.8,.2,1) both, float 6s ease-in-out 1s infinite;
+  }
+  @keyframes logoIn{
+    from{opacity:0; transform:translateY(-18px) scale(.86) rotate(-6deg);}
+    to  {opacity:1; transform:translateY(0) scale(1) rotate(0);}
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%    {transform:translateY(-9px);}
   }
   h1{
+    position:relative; display:inline-block;
     margin:0 0 10px; font-size:2.05rem; font-weight:800; letter-spacing:-.4px;
     background:linear-gradient(180deg,#fff 0%, var(--gold2) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:fadeUp .8s ease-out .15s both;
   }
-  .sub{color:var(--text2); font-size:1.02rem; margin:0;}
+  /* sweeping shine across the title */
+  h1::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 66%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    mix-blend-mode:screen;
+    background-size:220% 100%;
+    animation:shine 4.5s ease-in-out 1.2s infinite;
+  }
+  @keyframes shine{
+    0%  {background-position:220% 0;}
+    55% {background-position:-120% 0;}
+    100%{background-position:-120% 0;}
+  }
+  .sub{color:var(--text2); font-size:1.02rem; margin:0; animation:fadeUp .8s ease-out .3s both;}
   .rule{
     width:150px;height:4px;border-radius:2px;margin:22px auto 0;
     background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    transform-origin:center; animation:ruleIn 1s ease-out .45s both;
   }
+  @keyframes ruleIn{from{transform:scaleX(0); opacity:0;} to{transform:scaleX(1); opacity:1;}}
   .meta{
     margin:26px auto 0; max-width:560px; padding:12px 18px; border-radius:14px;
     background:rgba(255,255,255,.035); border:1px solid var(--line);
-    color:var(--text2); font-size:.92rem;
+    color:var(--text2); font-size:.92rem; animation:fadeUp .8s ease-out .6s both;
   }
   .meta b{color:var(--gold2); font-weight:700;}
 
@@ -69,7 +111,17 @@
   section{
     margin:22px 0 0; padding:26px 26px 8px; border-radius:18px;
     background:rgba(255,255,255,.030); border:1px solid rgba(255,255,255,.07);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s, border-color .5s;
   }
+  section:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+    border-color:var(--line);
+  }
+  /* scroll reveal */
+  .reveal{opacity:0; transform:translateY(26px);}
+  .reveal.in{opacity:1; transform:translateY(0); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);}
+
   h2{
     display:flex; align-items:center; gap:12px;
     margin:0 0 16px; font-size:1.25rem; font-weight:800; color:#fff;
@@ -78,7 +130,9 @@
     flex:0 0 auto; width:34px;height:34px;border-radius:10px;
     display:grid;place-items:center; font-size:.92rem; font-weight:800;
     color:var(--gold2); background:rgba(201,168,76,.12); border:1px solid var(--line);
+    transition:transform .4s ease, background .4s ease;
   }
+  section:hover h2 .n{transform:rotate(8deg) scale(1.08); background:rgba(201,168,76,.2);}
   h3{margin:22px 0 8px; font-size:1.03rem; font-weight:700; color:var(--gold2);}
   p{margin:0 0 14px;}
   ul{margin:0 0 14px; padding-inline-start:22px;}
@@ -90,12 +144,14 @@
     background:rgba(255,255,255,.06); padding:2px 7px; border-radius:6px; color:var(--gold2);
     direction:ltr; display:inline-block;
   }
-  a{color:var(--gold2); text-decoration:none; border-bottom:1px solid rgba(232,208,128,.35);}
+  a{color:var(--gold2); text-decoration:none; border-bottom:1px solid rgba(232,208,128,.35); transition:color .25s;}
   a:hover{color:var(--gold3);}
 
   table{width:100%; border-collapse:collapse; margin:6px 0 18px; font-size:.95rem;}
-  th,td{padding:11px 13px; text-align:right; border-bottom:1px solid rgba(255,255,255,.08); vertical-align:top;}
+  th,td{padding:11px 13px; text-align:left; border-bottom:1px solid rgba(255,255,255,.08); vertical-align:top;}
   th{color:var(--gold2); font-weight:700; background:rgba(201,168,76,.07);}
+  tbody tr{transition:background .25s;}
+  tbody tr:hover{background:rgba(201,168,76,.05);}
   tr:last-child td{border-bottom:none;}
 
   .note{
@@ -113,7 +169,17 @@
     margin:40px 0 0; padding:26px 0 0; text-align:center;
     color:var(--text3); font-size:.9rem; border-top:1px solid rgba(255,255,255,.07);
   }
-  footer .pc{color:var(--gold); font-size:1.3rem; letter-spacing:6px; display:block; margin-bottom:12px;}
+  footer .pc{
+    color:var(--gold); font-size:1.3rem; letter-spacing:6px; display:block; margin-bottom:12px;
+    animation:piecePulse 3.5s ease-in-out infinite;
+  }
+  @keyframes piecePulse{
+    0%,100%{opacity:.55; text-shadow:none;}
+    50%    {opacity:1; text-shadow:0 0 18px rgba(201,168,76,.5);}
+  }
+
+  @keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+
   @media (max-width:560px){
     body{font-size:16px;}
     h1{font-size:1.65rem;}
@@ -121,251 +187,278 @@
     .wrap{padding:0 14px 56px;}
     th,td{padding:9px 8px; font-size:.9rem;}
   }
+  /* respect users who prefer less motion */
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important;}
+    .reveal{opacity:1; transform:none;}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <img class="logo" src="https://12362aa.github.io/chess/icon.png" alt="شطرنج Am-Kh">
-    <h1>سياسة الخصوصية</h1>
-    <p class="sub">تطبيق <b>شطرنج Am-Kh</b> — لعبة شطرنج عربية للهواتف</p>
+    <img class="logo" src="https://12362aa.github.io/chess/icon.png" alt="Am-Kh Chess">
+    <h1>Privacy Policy</h1>
+    <p class="sub"><b>Am-Kh Chess</b> — a chess game for mobile</p>
     <div class="rule"></div>
     <div class="meta">
-      اسم الحزمة: <code>com.amkh.chessgame</code><br>
-      تاريخ السريان: <b>28 أغسطس 2026</b> &nbsp;·&nbsp; آخر تحديث: <b>7 أكتوبر 2026</b>
+      Package name: <code>com.amkh.chessgame</code><br>
+      Effective date: <b>August 28, 2026</b> &nbsp;·&nbsp; Last updated: <b>October 7, 2026</b>
     </div>
   </header>
 
-  <div class="lede">
+  <div class="lede reveal">
     <p>
-      <strong>شطرنج Am-Kh</strong> لعبة شطرنج للهواتف بواجهة عربية وإنجليزية كاملتين. تتيح اللعب ضد محرّك
-      Stockfish بمستوياتٍ متدرّجة، و«درب نور»: رحلة من 12 مرحلة ضد شخصيات «نور»، ولاعبين على نفس الجهاز،
-      واللعب عبر البلوتوث مع جهاز قريب، واللعب أونلاين مع الأصدقاء مع تصنيف ودردشة
-      ومكالمات صوت وفيديو ومساعد ذكي داخل المباراة، إضافةً إلى الألغاز والمراجعة بعد المباراة
-      ومتجر زينة ومجموعات لعب.
+      <strong>Am-Kh Chess</strong> is a mobile chess game with fully bilingual English and Arabic
+      interfaces. It lets you play against the Stockfish engine across tiered levels, follow
+      <strong>Nour's Path</strong> — a journey of 12 stages against the "Nour" characters —
+      play two players on one device, play over Bluetooth with a nearby device, and play online
+      with friends, with ratings, chat, voice and video calls, and an in-game smart assistant.
+      It also includes puzzles, post-game review, a cosmetics store, and play groups.
       <br><br>
-      نحن <strong>لا نبيع بياناتك ولا نشاركها لأغراض تسويقية</strong>، ولا يحتوي التطبيق على
-      إعلانات أو أدوات تتبّع تجارية. تشرح هذه الصفحة بدقّة ما نجمعه، ولماذا، ومع من نشاركه،
-      وكيف تحذفه.
+      We <strong>do not sell your data and do not share it for marketing purposes</strong>, and the
+      app contains no ads and no commercial tracking tools. This page explains exactly what we
+      collect, why, who we share it with, and how to delete it.
     </p>
   </div>
 
-  <section>
-    <h2><span class="n">١</span> ما يعمل بدون أي بيانات</h2>
+  <section class="reveal">
+    <h2><span class="n">1</span> What works with no data at all</h2>
     <div class="note">
       <p style="margin:0">
-        <b>يمكنك استخدام جزء كبير من اللعبة دون إنشاء حساب ودون اتصال بالإنترنت.</b>
-        في هذه الأوضاع لا تُرسل أي بيانات إلى خوادمنا على الإطلاق:
+        <b>You can use a large part of the game with no account and no internet connection.</b>
+        In these modes, no data is sent to our servers whatsoever:
       </p>
     </div>
     <ul>
-      <li><b>اللعب ضد المحرك</b> — محرّك الشطرنج يعمل بالكامل داخل جهازك.</li>
-      <li><b>درب نور (المراحل)</b> — التقدّم والنجوم تُخزَّن على جهازك.</li>
-      <li><b>لاعبان على نفس الجهاز</b> — لا شبكة ولا حساب.</li>
-      <li><b>اللعب عبر البلوتوث</b> — الاتصال مباشر بين الجهازين، ولا يمرّ بخوادمنا.</li>
+      <li><b>Playing the engine</b> — the chess engine runs entirely on your device.</li>
+      <li><b>Nour's Path (the levels)</b> — progress and stars are stored on your device.</li>
+      <li><b>Two players on one device</b> — no network, no account.</li>
+      <li><b>Playing over Bluetooth</b> — the connection is direct between the two devices and does not pass through our servers.</li>
     </ul>
     <p>
-      البيانات الموصوفة في القسم التالي تُجمَع فقط عند إنشاء حساب أو استخدام الميزات
-      المتّصلة بالإنترنت (أونلاين، الأصدقاء، الدردشة، المكالمات، التصنيف، مساعد نور، الإشعارات).
+      The data described in the next section is collected only when you create an account or use the
+      online features (online play, friends, chat, calls, ratings, the Nour assistant, notifications).
     </p>
   </section>
 
-  <section>
-    <h2><span class="n">٢</span> البيانات التي نجمعها ولماذا</h2>
+  <section class="reveal">
+    <h2><span class="n">2</span> The data we collect and why</h2>
     <table>
-      <tr><th style="width:32%">البيانات</th><th>الغرض</th></tr>
+      <tr><th style="width:32%">Data</th><th>Purpose</th></tr>
       <tr>
-        <td><b>بيانات الحساب</b><br>البريد الإلكتروني، الاسم المعروض، اسم المستخدم، الصورة الرمزية، مُعرِّف حساب Google، البلد (اختياري)</td>
-        <td>إنشاء حسابك وتسجيل الدخول وتمييزك عن باقي اللاعبين. عند استخدام «تسجيل الدخول بـGoogle» نستلم البريد والاسم والصورة من Google فقط — <b>لا نرى كلمة مرور حساب Google الخاص بك إطلاقًا</b>.</td>
+        <td><b>Account data</b><br>email address, display name, username, avatar, Google account ID, country (optional)</td>
+        <td>To create your account, sign you in, and tell you apart from other players. When you use "Sign in with Google" we receive your email, name and picture from Google only — <b>we never see your Google account password</b>.</td>
       </tr>
       <tr>
-        <td><b>بيانات اللعب</b><br>نتائج المباريات، أسماء الخصوم، التصنيف وتاريخه، عدد الانتصارات والخسائر والتعادلات، نقلات المباريات المُصنَّفة، تقدّم درب نور، التحدّيات اليومية والألغاز المُنجَزة</td>
-        <td>حساب التصنيف بنزاهة، إظهار سجل مبارياتك ولوحة المتصدّرين، ومتابعة تقدّمك في المراحل والألغاز والتحدّيات.</td>
+        <td><b>Gameplay data</b><br>match results, opponent names, rating and its history, win/loss/draw counts, rated-game moves, Nour's Path progress, daily challenges and completed puzzles</td>
+        <td>To compute ratings fairly, show your match history and the leaderboard, and track your progress across levels, puzzles and challenges.</td>
       </tr>
       <tr>
-        <td><b>البيانات الاجتماعية</b><br>قائمة الأصدقاء، طلبات الصداقة، الحظر، الدعوات للمباريات، المجموعات وعضويّتها، حالة التواجد (متصل/آخر ظهور)</td>
-        <td>تشغيل نظام الأصدقاء والدعوات والمجموعات، وإظهار مَن متاح للعب الآن.</td>
+        <td><b>Social data</b><br>friends list, friend requests, blocks, match invites, groups and memberships, presence (online / last seen)</td>
+        <td>To run the friends, invites and groups system, and show who is available to play now.</td>
       </tr>
       <tr>
-        <td><b>زينة الحساب</b><br>عناصر الزينة التي تملكها وتفعّلها (إطارات، خلفيّات، شارات، احتفالات الفوز، مؤثّرات)</td>
-        <td>حفظ ما تملكه من زينة المتجر وإظهار زينتك المختارة للاعبين الآخرين في الصدارة والأصدقاء والمحادثة والمباراة.</td>
+        <td><b>Account cosmetics</b><br>the cosmetic items you own and have equipped (frames, backgrounds, badges, win celebrations, effects)</td>
+        <td>To save what you own from the store and show your chosen cosmetics to other players on the leaderboard, in friends, chat and matches.</td>
       </tr>
       <tr>
-        <td><b>الرسائل</b><br>نصوص الدردشة، الرسائل الصوتية، أوقات الإرسال والتسليم والقراءة، الردود والرسائل المثبّتة</td>
-        <td>توصيل رسائلك إلى مَن أرسلتها له، وإظهارها لك على أي جهاز تدخل منه، وعرض علامات التسليم والقراءة. تُخزَّن على خادمنا لهذا الغرض.</td>
+        <td><b>Messages</b><br>chat text, voice messages, send/delivery/read timestamps, replies and pinned messages</td>
+        <td>To deliver your messages to their recipient, show them to you on any device you sign in from, and display delivery and read marks. Stored on our server for this purpose.</td>
       </tr>
       <tr>
-        <td><b>الإعدادات وتفضيلات الخصوصية</b></td>
-        <td>حفظ اختياراتك (الثيم، الصوت، مَن يستطيع مراسلتك أو رؤية تواجدك… إلخ) وتطبيقها.</td>
+        <td><b>Settings and privacy preferences</b></td>
+        <td>To save and apply your choices (theme, sound, who can message you or see your presence, etc.).</td>
       </tr>
       <tr>
-        <td><b>مُعرِّف الإشعارات</b> (رمز جهاز من Firebase)</td>
-        <td>إرسال إشعارات دعوات المباريات والرسائل والمكالمات إلى جهازك. رمز تقني مرتبط بالجهاز، ولا يحتوي على أي معلومات شخصية.</td>
+        <td><b>Notification token</b> (a device token from Firebase)</td>
+        <td>To send match-invite, message and call notifications to your device. A technical token tied to the device, containing no personal information.</td>
       </tr>
       <tr>
-        <td><b>البيانات التقنية الأساسية</b><br>عنوان IP وأوقات الاتصال</td>
-        <td>تُعالَج تلقائيًا لتشغيل الاتصال بالخادم وحمايته من إساءة الاستخدام. نحن لا نبني منها ملفًّا تعريفيًّا عنك.</td>
+        <td><b>Basic technical data</b><br>IP address and connection timestamps</td>
+        <td>Processed automatically to operate the server connection and protect it from abuse. We do not build a profile about you from it.</td>
       </tr>
     </table>
     <div class="warnbox">
       <p style="margin:0">
-        <b>ما لا نجمعه:</b> لا نجمع موقعك الجغرافي، ولا جهات اتصالك، ولا الصور والملفات
-        الموجودة على جهازك، ولا سجل التطبيقات المثبّتة، ولا أي بيانات مالية.
-        متجر الزينة داخل التطبيق لا يتضمّن حاليًا أي شراء بأموال حقيقية، فلا نجمع
-        بيانات بطاقات أو مدفوعات. كما <b>لا يحتوي التطبيق على إعلانات ولا أدوات تحليلات أو تتبّع تجارية</b>.
+        <b>What we do not collect:</b> we do not collect your location, your contacts, the photos and
+        files on your device, your installed-apps list, or any financial data. The in-app cosmetics
+        store currently involves no real-money purchases, so we collect no card or payment data.
+        The app also <b>contains no ads and no analytics or commercial tracking tools</b>.
       </p>
     </div>
   </section>
 
-  <section>
-    <h2><span class="n">٣</span> صلاحيات الجهاز — لماذا نطلبها</h2>
-    <p>نطلب كل صلاحية لغرض واضح مرتبط بميزة تستخدمها، ويمكنك رفضها والاستمرار في اللعب:</p>
+  <section class="reveal">
+    <h2><span class="n">3</span> Device permissions — why we ask</h2>
+    <p>We ask for each permission for a clear purpose tied to a feature you use, and you can decline and keep playing:</p>
     <table>
-      <tr><th style="width:34%">الصلاحية</th><th>سبب الطلب</th></tr>
-      <tr><td><b>الكاميرا</b></td><td>مكالمات الفيديو مع خصمك أثناء المباراة فقط. لا نصوّر ولا نخزّن أي صورة أو فيديو.</td></tr>
-      <tr><td><b>الميكروفون</b></td><td>المكالمات الصوتية والرسائل الصوتية التي تختار إرسالها.</td></tr>
-      <tr><td><b>البلوتوث والأجهزة القريبة</b></td><td>العثور على جهاز قريب واللعب معه مباشرة بدون إنترنت.</td></tr>
-      <tr><td><b>أجهزة Wi-Fi القريبة</b></td><td>اكتشاف الأجهزة المجاورة عبر الاتصال القريب لبدء مباراة محلّية مباشرة بينكما، دون المرور بخوادمنا.</td></tr>
+      <tr><th style="width:34%">Permission</th><th>Reason</th></tr>
+      <tr><td><b>Camera</b></td><td>Video calls with your opponent during a match only. We do not film or store any photo or video.</td></tr>
+      <tr><td><b>Microphone</b></td><td>Voice calls and the voice messages you choose to send.</td></tr>
+      <tr><td><b>Bluetooth & nearby devices</b></td><td>Finding a nearby device and playing with it directly, with no internet.</td></tr>
+      <tr><td><b>Nearby Wi-Fi devices</b></td><td>Discovering adjacent devices over the nearby-connection feature to start a direct local match between you, without passing through our servers.</td></tr>
       <tr>
-        <td><b>الموقع (تقريبي/دقيق)</b></td>
+        <td><b>Location (approximate/precise)</b></td>
         <td>
-          يفرض نظام Android هذه الصلاحية تقنيًّا على أي تطبيق يبحث عن أجهزة بلوتوث قريبة.
-          نستخدمها <b>فقط</b> لتمكين البحث عن الأجهزة القريبة،
-          و<b>لا نقرأ موقعك ولا نخزّنه ولا نرسله إلى أي مكان</b>.
+          Android technically requires this permission for any app that scans for nearby Bluetooth
+          devices. We use it <b>only</b> to enable scanning for nearby devices, and we
+          <b>do not read, store or send your location anywhere</b>.
         </td>
       </tr>
-      <tr><td><b>الإشعارات والاهتزاز</b></td><td>تنبيهك بدعوة مباراة أو رسالة أو مكالمة واردة، وعرض شاشة المكالمة الواردة والتطبيق مُغلق.</td></tr>
-      <tr><td><b>الإنترنت وحالة الشبكة</b></td><td>الاتصال بالخادم للأوضاع الأونلاين، ومعرفة إن كان الاتصال متاحًا.</td></tr>
+      <tr><td><b>Notifications & vibration</b></td><td>To alert you to a match invite, a message or an incoming call, and to show the incoming-call screen while the app is closed.</td></tr>
+      <tr><td><b>Internet & network state</b></td><td>Connecting to the server for online modes, and knowing whether a connection is available.</td></tr>
     </table>
   </section>
 
-  <section>
-    <h2><span class="n">٤</span> مساعد «نور» الذكي</h2>
+  <section class="reveal">
+    <h2><span class="n">4</span> The "Nour" smart assistant</h2>
     <p>
-      داخل المباراة يمكنك التحدّث مع مساعد ذكي يشرح ويحلّل بلغتك. لتوليد الردّ، يُرسَل
-      <b>وصف نصّي لحالة المباراة</b> (وضع القطع، آخر نقلة، دورك، التقييم، اسمك المعروض
-      داخل اللعبة، ونصّ رسالتك للمساعد) إلى مزوّد خدمة الذكاء الاصطناعي
+      Inside a match you can talk to a smart assistant that explains and analyses in your language. To
+      generate the reply, a <b>text description of the match state</b> (the piece positions, the last
+      move, whose turn it is, the evaluation, your in-game display name, and the text of your message to
+      the assistant) is sent to the AI service provider
       <a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener">Groq</a>
-      لمعالجته وإرجاع الردّ. ويُستخدَم المزوّد نفسه أيضًا لشرح الألغاز باختصار، ولصياغة نصّ
-      بعض الإشعارات بلغتك.
+      for processing and returning the reply. The same provider is also used to briefly explain puzzles
+      and to phrase the text of some notifications in your language.
     </p>
     <ul>
-      <li>لا يُرسَل بريدك الإلكتروني ولا رسائلك الخاصة مع أصدقائك ولا أي بيانات حساب.</li>
-      <li>هذه الميزة تعمل فقط عند استخدامك للمساعد؛ اللعب ضد المحرك لا يحتاجها.</li>
-      <li>تخضع معالجة هذه الرسائل لسياسة خصوصية Groq بالإضافة إلى هذه السياسة.</li>
+      <li>Your email address, your private messages with friends, and any account data are not sent.</li>
+      <li>This feature works only when you use the assistant; playing the engine does not need it.</li>
+      <li>Processing of these messages is subject to Groq's privacy policy in addition to this one.</li>
     </ul>
   </section>
 
-  <section>
-    <h2><span class="n">٥</span> مع مَن نشارك البيانات</h2>
-    <p>لا نبيع بياناتك ولا نشاركها مع مُعلِنين. نستعين فقط بمزوّدي خدمات تقنيين لتشغيل الميزات:</p>
+  <section class="reveal">
+    <h2><span class="n">5</span> Who we share data with</h2>
+    <p>We do not sell your data and do not share it with advertisers. We rely only on technical service providers to run the features:</p>
     <table>
-      <tr><th style="width:34%">الجهة</th><th>ما تصل إليه وسببه</th></tr>
-      <tr><td><b>Google</b> (تسجيل الدخول)</td><td>التحقّق من هويتك عند اختيارك «تسجيل الدخول بـGoogle».</td></tr>
-      <tr><td><b>Firebase Cloud Messaging</b> (Google)</td><td>توصيل الإشعارات إلى جهازك.</td></tr>
-      <tr><td><b>Groq</b></td><td>معالجة رسائل مساعد «نور» كما هو موضّح في القسم ٤.</td></tr>
-      <tr><td><b>Cloudflare و Google STUN</b></td><td>خدمات ربط المكالمات. لإتمام الاتصال يمرّ بها عنوان IP للطرفين، وقد تُمرَّر عبرها بيانات الصوت/الفيديو مُشفَّرة إذا تعذّر الاتصال المباشر.</td></tr>
-      <tr><td><b>GitHub</b></td><td>استضافة هذه الصفحة وملف إعداد عنوان الخادم الذي يقرأه التطبيق.</td></tr>
+      <tr><th style="width:34%">Party</th><th>What it accesses and why</th></tr>
+      <tr><td><b>Google</b> (sign-in)</td><td>Verifying your identity when you choose "Sign in with Google".</td></tr>
+      <tr><td><b>Firebase Cloud Messaging</b> (Google)</td><td>Delivering notifications to your device.</td></tr>
+      <tr><td><b>Groq</b></td><td>Processing "Nour" assistant messages as described in section 4.</td></tr>
+      <tr><td><b>Cloudflare & Google STUN</b></td><td>Call-connection services. To establish the connection, each party's IP passes through them, and audio/video data may be relayed through them encrypted if a direct connection is not possible.</td></tr>
+      <tr><td><b>GitHub</b></td><td>Hosting this page and the server-address configuration file the app reads.</td></tr>
     </table>
     <p>
-      قد نكشف بيانات إذا طلب ذلك قانونٌ سارٍ أو جهة قضائية مختصّة، أو للتحقيق في إساءة
-      استخدام أو غشّ يهدّد نزاهة اللعب وسلامة اللاعبين.
+      We may disclose data if required by applicable law or a competent judicial authority, or to
+      investigate abuse or cheating that threatens the integrity of play and the safety of players.
     </p>
   </section>
 
-  <section>
-    <h2><span class="n">٦</span> المكالمات والدردشة</h2>
+  <section class="reveal">
+    <h2><span class="n">6</span> Calls and chat</h2>
     <ul>
       <li>
-        <b>المكالمات (صوت وفيديو):</b> تُنقَل مباشرة بين الجهازين بتقنية WebRTC وهي مُشفَّرة أثناء النقل.
-        <b>لا نسجّل المكالمات ولا نخزّنها.</b> يقتصر دور خادمنا على تعريف الطرفين ببعضهما لبدء الاتصال.
+        <b>Calls (voice and video):</b> transmitted directly between the two devices via WebRTC and
+        encrypted in transit. <b>We do not record or store calls.</b> Our server's role is limited to
+        introducing the two parties to each other to start the connection.
       </li>
       <li>
-        <b>الدردشة:</b> الرسائل النصّية والصوتية تُخزَّن على خادمنا حتى يستلمها المستلِم ويستطيع كلاكما
-        الرجوع إليها. الاتصال بالخادم مُشفَّر (HTTPS/WSS). الرسائل ليست مُشفَّرة طرفًا-لطرف،
-        أي أن مدير الخادم قادر تقنيًّا على الوصول إليها؛ لا نقرأ محتوى الرسائل إلا عند
-        بلاغ إساءة أو ضرورة تقنية.
+        <b>Chat:</b> text and voice messages are stored on our server until the recipient receives them
+        and both of you can refer back to them. The connection to the server is encrypted (HTTPS/WSS).
+        Messages are not end-to-end encrypted, meaning the server administrator is technically able to
+        access them; we do not read message content except in the case of an abuse report or technical
+        necessity.
       </li>
       <li>
-        <b>إعدادات الخصوصية:</b> يمكنك من داخل التطبيق التحكّم في مَن يستطيع مراسلتك أو دعوتك
-        أو رؤية تواجدك وصورتك، ويمكنك حظر أي مستخدم.
+        <b>Privacy settings:</b> from inside the app you can control who can message you, invite you, or
+        see your presence and picture, and you can block any user.
       </li>
     </ul>
   </section>
 
-  <section>
-    <h2><span class="n">٧</span> مدّة الاحتفاظ بالبيانات وحذف حسابك</h2>
+  <section class="reveal">
+    <h2><span class="n">7</span> Data retention and deleting your account</h2>
     <p>
-      نحتفظ ببيانات حسابك ما دام حسابك قائمًا. تظلّ سجلّات المباريات المُصنَّفة محفوظة
-      لضمان نزاهة نظام التصنيف. يمكنك في أي وقت:
+      We retain your account data for as long as your account exists. Rated-game records stay stored to
+      ensure the integrity of the rating system. At any time you can:
     </p>
     <ul>
-      <li>تعديل اسمك المعروض وصورتك وإعدادات خصوصيتك من داخل التطبيق.</li>
+      <li>Edit your display name, picture and privacy settings from inside the app.</li>
       <li>
-        <b>طلب حذف حسابك وبياناتك بالكامل</b> عن طريق مراسلتنا (انظر القسم ١٠).
-        يُنفَّذ الحذف خلال <b>30 يومًا</b> كحدّ أقصى، ويشمل بيانات حسابك ورسائلك
-        وقائمة أصدقائك وتفضيلاتك ورمز الإشعارات الخاص بجهازك.
+        <b>Request full deletion of your account and data</b> by contacting us (see section 10).
+        Deletion is carried out within <b>30 days</b> at most, and covers your account data, your
+        messages, your friends list, your preferences and your device's notification token.
       </li>
       <li>
-        قد نُبقي على سجلّ مباريات مجهول الهوية (بدون بريدك أو اسمك أو أي مُعرِّف يدلّ عليك)
-        لأغراض سلامة نظام التصنيف.
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2><span class="n">٨</span> أمن البيانات</h2>
-    <ul>
-      <li>كل الاتصال بين التطبيق والخادم يمرّ عبر قنوات مُشفَّرة (HTTPS و WSS).</li>
-      <li>الدخول إلى حسابك محميّ برموز دخول مؤقّتة، وكلمات المرور — إن استُخدمت — تُخزَّن مُعمّاة (hash) لا كنصّ صريح.</li>
-      <li>الوصول إلى قاعدة البيانات مقصور على مَن يُشغّل الخدمة.</li>
-      <li>
-        لا توجد طريقة نقل أو تخزين آمنة بنسبة 100%؛ نبذل جهدًا معقولًا لحماية بياناتك،
-        لكننا لا نستطيع ضمان الأمن المطلق.
+        We may keep an anonymised match record (without your email, name, or any identifier that points
+        to you) for the integrity of the rating system.
       </li>
     </ul>
   </section>
 
-  <section>
-    <h2><span class="n">٩</span> الأطفال</h2>
+  <section class="reveal">
+    <h2><span class="n">8</span> Data security</h2>
+    <ul>
+      <li>All communication between the app and the server goes over encrypted channels (HTTPS and WSS).</li>
+      <li>Access to your account is protected by temporary sign-in codes, and passwords — if used — are stored hashed, not as plain text.</li>
+      <li>Access to the database is limited to those who operate the service.</li>
+      <li>
+        No method of transmission or storage is 100% secure; we make a reasonable effort to protect your
+        data, but we cannot guarantee absolute security.
+      </li>
+    </ul>
+  </section>
+
+  <section class="reveal">
+    <h2><span class="n">9</span> Children</h2>
     <p>
-      اللعبة مناسبة لعموم الجمهور، لكنها <b>غير موجَّهة للأطفال دون 13 عامًا</b> ولا نجمع
-      بياناتهم عن قصد. الميزات الاجتماعية (الدردشة والمكالمات ومطابقة اللاعبين) تتطلّب وعيًا
-      بالتعامل مع الغرباء، لذا نوصي بإشراف الوالدين. إذا علم وليّ أمر أن طفلًا دون 13 عامًا
-      أنشأ حسابًا، فليراسلنا وسنحذف الحساب وبياناته.
+      The game is suitable for a general audience, but it is <b>not directed at children under 13</b> and
+      we do not knowingly collect their data. The social features (chat, calls and player matchmaking)
+      require awareness in dealing with strangers, so we recommend parental supervision. If a guardian
+      learns that a child under 13 has created an account, they can contact us and we will delete the
+      account and its data.
     </p>
   </section>
 
-  <section>
-    <h2><span class="n">١٠</span> التواصل معنا</h2>
+  <section class="reveal">
+    <h2><span class="n">10</span> Contact us</h2>
     <p>
-      لأي سؤال عن هذه السياسة، أو لطلب حذف حسابك وبياناتك، أو للإبلاغ عن إساءة استخدام،
-      تواصل معنا عبر:
+      For any question about this policy, to request deletion of your account and data, or to report
+      abuse, contact us via:
     </p>
     <ul>
-      <li><b>البريد الإلكتروني:</b> <a href="mailto:ahmedkhalifaw3@gmail.com">ahmedkhalifaw3@gmail.com</a></li>
-      <li><b>صفحة المطوّر على GitHub:</b> <a href="https://github.com/12362aa" target="_blank" rel="noopener">github.com/12362aa</a></li>
-      <li><b>فتح طلب مباشر:</b> <a href="https://github.com/12362aa/chess/issues" target="_blank" rel="noopener">صفحة الطلبات والبلاغات</a></li>
+      <li><b>Email:</b> <a href="mailto:ahmedkhalifaw3@gmail.com">ahmedkhalifaw3@gmail.com</a></li>
+      <li><b>Developer page on GitHub:</b> <a href="https://github.com/12362aa" target="_blank" rel="noopener">github.com/12362aa</a></li>
+      <li><b>Open a direct request:</b> <a href="https://github.com/12362aa/chess/issues" target="_blank" rel="noopener">the requests and reports page</a></li>
     </ul>
-    <p>نسعى للردّ على الطلبات المتعلّقة بالخصوصية وحذف البيانات في أسرع وقت ممكن.</p>
+    <p>We aim to respond to privacy- and data-deletion requests as quickly as possible.</p>
   </section>
 
-  <section>
-    <h2><span class="n">١١</span> تعديلات هذه السياسة</h2>
+  <section class="reveal">
+    <h2><span class="n">11</span> Changes to this policy</h2>
     <p>
-      قد نُحدِّث هذه الصفحة عند إضافة ميزات جديدة أو تغيّر طريقة معالجة البيانات. سيُعدَّل
-      «تاريخ آخر تحديث» أعلى الصفحة عند كل تعديل، وستُنشَر النسخة المُحدَّثة على هذا الرابط
-      نفسه. التعديلات الجوهرية سنُنبّه إليها داخل التطبيق.
+      We may update this page when we add new features or change how data is processed. The "last
+      updated" date at the top of the page will be revised with each change, and the updated version
+      will be published at this same link. We will flag material changes inside the app.
     </p>
   </section>
 
   <footer>
-    <span class="pc">♜ ♞ ♝ ♛ ♚</span>
-    شطرنج Am-Kh &nbsp;·&nbsp; <code>com.amkh.chessgame</code><br>
-    سياسة الخصوصية — نُشرت في 28 أغسطس 2026، وحُدِّثت في 7 أكتوبر 2026
+    <span class="pc">&#9820; &#9822; &#9821; &#9819; &#9818;</span>
+    Am-Kh Chess &nbsp;·&nbsp; <code>com.amkh.chessgame</code><br>
+    Privacy Policy — published August 28, 2026, updated October 7, 2026
   </footer>
 
 </div>
+
+<script>
+  // Scroll-reveal: fade sections in as they enter the viewport.
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
 </body>
 </html>
